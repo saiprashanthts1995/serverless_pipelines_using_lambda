@@ -9,4 +9,5 @@ def udf_exception(udf_method):
         except Exception as e:
             print(e)
             sys.exit(1)
+
     return exception_method

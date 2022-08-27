@@ -1,5 +1,4 @@
 import boto3
-import os
 from github_archive.utlis import udf_exception
 
 
@@ -13,9 +12,9 @@ class S3Service:
         This Udf is used to list the buckets available in the account
         Returns: list of buckets
         """
-        list_buckets_response = self.s3_client.list_buckets()
-        print(list_buckets_response)
-        bucket_list = [bucket["Name"] for bucket in list_buckets_response["Buckets"]]
+        response = self.s3_client.list_buckets()
+        print(response)
+        bucket_list = [bucket["Name"] for bucket in response["Buckets"]]
         return bucket_list
 
     @udf_exception
@@ -32,5 +31,9 @@ if __name__ == "__main__":
     s3 = S3Service()
     print(s3.s3_list_buckets())
     print(
-        s3.s3_write_content("Hello", "sai-ts-learn-tf", "landing_zone/Test/Hello.txt")
+        s3.s3_write_content(
+            content="Hello",
+            bucket_name="sai-ts-learn-tf",
+            file_name="landing_zone/Test/Hello.txt",
+        )
     )
