@@ -1,5 +1,5 @@
 # !bin/sh
-declare -a PYTHON_PACKAGES=("github_archive")
+declare -a PYTHON_PACKAGES=('github_archive')
 
 rm -rf build
 echo "creating the folder for downloading the python packages present in requirements_for_build.txt"
