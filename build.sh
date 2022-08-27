@@ -1,4 +1,4 @@
-# !bin/bash
+#!/bin/bash
 declare -a PYTHON_PACKAGES=('github_archive')
 
 rm -rf build
