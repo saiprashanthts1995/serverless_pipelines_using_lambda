@@ -12,7 +12,7 @@ echo "creating the folder for lambda code"
 mkdir build_code
 
 
-python3 -m pip install requirements_for_build.txt -t build
+python3 -m pip install -r requirements_for_build.txt -t build
 
 echo "Zipping the contents present inside "$package
 zip -rq build_code/${package}.zip $package
