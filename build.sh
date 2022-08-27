@@ -16,7 +16,7 @@ python3 -m pip install requirements.txt -t build
 for package in ${PYTHON_PACKAGES[@]}
 do
   echo "Zipping the contents present inside "$package
-  zip -rq build_code/$package package
+  zip -rq build_code/${package}.zip $package
   cd build
   echo "Adding the packages present in requirements_for_build.txt to the package "$package
   zip -rq ../build_code/$package .
