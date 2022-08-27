@@ -1,12 +1,12 @@
 # !bin/sh
 declare -a PYTHON_PACKAGES=("github_archive")
 
-rm - rf build
+rm -rf build
 echo "creating the folder for downloading the python packages present in requirements_for_build.txt"
 mkdir build
 
 
-rm - rf build_code
+rm -rf build_code
 echo "creating the folder for lambda code"
 mkdir build_code
 
