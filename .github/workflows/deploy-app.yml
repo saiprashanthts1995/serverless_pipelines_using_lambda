@@ -22,4 +22,4 @@ jobs:
     
     - name: Build code to create Zip file
       run: |
-        sh +x build.sh
+        sh +x build_using_github.sh
