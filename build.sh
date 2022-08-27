@@ -1,4 +1,5 @@
 #!/bin/bash
+# Below code works in normal shell
 declare -a PYTHON_PACKAGES=('github_archive')
 
 rm -rf build
