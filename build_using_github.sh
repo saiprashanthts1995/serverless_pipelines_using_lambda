@@ -18,8 +18,11 @@ echo "Zipping the contents present inside "$package
 zip -rq build_code/${package}.zip $package
 cd build
 echo "Adding the packages present in requirements_for_build.txt to the package "$package
-zip -rq ../build_code/$package .
+zip -rq ../build_code/${package}.zip .
 
 echo "Process Completed"
 
 rm -rf ../build
+
+echo "Checking the contents by using unzip"
+unzip -t ../build_code/${package}.zip
