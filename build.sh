@@ -2,7 +2,7 @@
 declare -a PYTHON_PACKAGES=("github_archive")
 
 rm - rf build
-echo "creating the folder for downloading the python packages present in requirements.txt"
+echo "creating the folder for downloading the python packages present in requirements_for_build.txt"
 mkdir build
 
 
@@ -18,7 +18,7 @@ do
   echo "Zipping the contents present inside "$package
   zip -rq build_code/$package package
   cd build
-  echo "Adding the packages present in requirements.txt to the package "$package
+  echo "Adding the packages present in requirements_for_build.txt to the package "$package
   zip -rq ../build_code/$package .
 done
 
