@@ -24,5 +24,4 @@ done
 
 echo "Process Completed"
 
-cd ..
-rm -rf build
+rm -rf ../build
