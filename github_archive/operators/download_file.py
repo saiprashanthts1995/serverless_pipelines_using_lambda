@@ -3,10 +3,11 @@ from github_archive.services.s3_service import S3Service
 import requests
 
 
-def download_file(path):
+def download_file(path: str) -> bytes:
     """
     This udf is used for downloading the files from the
-     github archive website and returns back the file
+     gitHub archive website and returns the file content
+     in bytes
     Args:
         path: path to be downloaded
 
