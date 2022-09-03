@@ -1,1 +1,10 @@
 serverless
+.idea/modules.xml
+.idea/misc.xml
+.idea/serverless_pipeline.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/vcs.xml
+.idea/.gitignore
+github_archive/__pycache__/__init__.cpython-310.pyc
+github_archive/__pycache__/utlis.cpython-310.pyc
+github_archive/services/__pycache__/s3_service.cpython-310.pyc
