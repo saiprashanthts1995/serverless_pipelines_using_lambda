@@ -115,7 +115,7 @@ if __name__ == "__main__":
         )
         print(response)
     time.sleep(20)
-    """
+
     # read using get_item method. Here we can use only key attributes.
     # Mention both Hash and range key. otherwise this doesn't work
     print(
@@ -139,3 +139,4 @@ if __name__ == "__main__":
         alias_columns={"#Name_NonKeyName": "Name", "#Date_NonKeyName": "Date"},
     )
     print(output)
+    """
