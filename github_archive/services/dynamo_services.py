@@ -17,6 +17,10 @@ class DynamoService:
         attributes_definition,
         billing_mode="PAY_PER_REQUEST",
     ):
+        # Only the attributes mentioned in the KeySchema
+        # should be used ib Attribute Definition
+        # Other Non-key attributes will be taken
+        # directly while we write the data
         create_table_response = self.client.create_table(
             AttributeDefinitions=attributes_definition,
             TableName=table_name,
