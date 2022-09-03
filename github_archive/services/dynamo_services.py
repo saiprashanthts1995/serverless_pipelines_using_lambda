@@ -167,7 +167,7 @@ if __name__ == "__main__":
         table_name="test",
         filter_condition=Attr("Date").eq(3725) & Key("ID").eq("2"),
         select_type="SPECIFIC_ATTRIBUTES",
-        # filter_condition=Key("ID").eq('1')
+        # filter_condition=Key("ID").gt('1')
         # filter_condition=Key("ID").eq('1') & Key("Name").eq('Element_1'),
         select_attributes="ID, #Name_NonKeyName, #Date_NonKeyName",
         alias_columns={"#Name_NonKeyName": "Name", "#Date_NonKeyName": "Date"},
