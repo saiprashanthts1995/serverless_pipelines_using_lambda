@@ -30,6 +30,8 @@ class DynamoService:
         return create_table_response
 
     def delete_table(self, table_name):
+        # this deletes the table, local and global
+        # secondary indexes defined
         delete_table_response = self.client.delete_table(TableName=table_name)
         return delete_table_response
 
@@ -68,8 +70,21 @@ class DynamoService:
             result.extend(response["Items"])
         return result
 
-    def delete_table_entry(self, table_name, key_dict):
+    def delete_table_entry_using_scan(self, table_name, key_dict):
+        # first, use scan function to get the corresponding rows using
+        # non-key attributes( filter)
+        # second, get the key columns from the above output
+        # third, use delete_items by passing the keys
         pass
+
+    def delete_table_entry_using_delete(self, table_name, filter_expression):
+        # We need to search based on combination of Hash and Range Key
+        # Only providing the Hash key doesn't work here
+        # We cannot search based on Non-key attributes using delete_item
+        delete_response = self.client.delete_item(
+            TableName=table_name, Key=filter_expression
+        )
+        return delete_response
 
     def retrieve_table_content_using_get(self, table_name, filter_expression):
         # We need to search based on combination of Hash and Range Key
@@ -81,6 +96,8 @@ class DynamoService:
         return get_response
 
     def write_to_table(self, table_name, item):
+        # we need to write one item per request
+        # for multiple items, we need to loop through
         write_response = self.client.put_item(TableName=table_name, Item=item)
         return write_response
 
@@ -109,22 +126,22 @@ if __name__ == "__main__":
     time.sleep(20)
 
     # write to the table
-    for i in range(5):
+    for i in range(6, 10):
         response = db.write_to_table(
             table_name="test",
             item={
                 "ID": {"S": str(i)},
                 "Name": {"S": f"Element_{i}"},
-                "Date": {"N": "3725"},
+                "Date": {"N": "3736"},
             },
         )
         print(response)
-    time.sleep(20)
+    # time.sleep(20)
 
     # read using get_item method. Here we can use only key attributes.
     # Mention both Hash and range key. otherwise this doesn't work
     print(
-        db.retrieve_table_content_based_on_get(
+        db.retrieve_table_content_using_get(
             table_name="test",
             filter_expression={
                 "ID": {"S": "1"},
@@ -132,13 +149,21 @@ if __name__ == "__main__":
             },
         )
     )
+    # delete based on Key attributes
+    output = db.delete_table_entry_using_delete(
+        table_name="test",
+        filter_expression={
+            "ID": {"S": "1"},
+            "Name": {"S": "Element_1"},
+        },
+    )
+    print(output)
     """
-
     # read using scan
-    time.sleep(5)
+    time.sleep(1)
     output = db.retrieve_table_content_using_scan(
         table_name="test",
-        filter_condition=Attr("Date").eq(3725) & Key("ID").eq("1"),
+        filter_condition=Attr("Date").eq(3725) & Key("ID").eq("2"),
         select_type="SPECIFIC_ATTRIBUTES",
         # filter_condition=Key("ID").eq('1')
         # filter_condition=Key("ID").eq('1') & Key("Name").eq('Element_1'),
