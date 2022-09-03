@@ -5,7 +5,8 @@ import requests
 
 def download_file(path):
     """
-    This udf is used for downloading the files from the github archive website and returns back the file
+    This udf is used for downloading the files from the
+     github archive website and returns back the file
     Args:
         path: path to be downloaded
 
