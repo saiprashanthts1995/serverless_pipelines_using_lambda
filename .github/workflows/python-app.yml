@@ -27,14 +27,7 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-        
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -46,6 +39,3 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Check the code quality using pre-commit hook
-      run: |
-        pre-commit run --all-files --verbose
