@@ -15,7 +15,7 @@ def download_file(path: str) -> bytes:
     """
     response = requests.get(path)
     if response.status_code == 200:
-        print(f'File {path} got downloaded successfully')
+        print(f"File {path} got downloaded successfully")
         return response.content
     else:
         print("Process of downloading the file got failed.")
@@ -24,5 +24,4 @@ def download_file(path: str) -> bytes:
 
 if __name__ == "__main__":
     s3 = S3Service()
-    download_file('https://data.gharchive.org/2015-01-01-15.json.gz')
-
+    download_file("https://data.gharchive.org/2015-01-01-15.json.gz")

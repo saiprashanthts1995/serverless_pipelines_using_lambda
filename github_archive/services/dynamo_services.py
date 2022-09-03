@@ -29,7 +29,7 @@ class DynamoService:
         delete_table_response = self.client.delete_table(TableName=table_name)
         return delete_table_response
 
-    def retrieve_table_content_based_on_scan(
+    def retrieve_table_content_using_scan(
         self,
         table_name,
         filter_condition,
@@ -39,7 +39,8 @@ class DynamoService:
     ):
         # Here, we can do filter based on Hash key or Range Key separately.
         # To filter based on range of one column use the below syntax
-        # Attr('timestamp').between(1483130000, 1483133600) & Attr('tags').exists()
+        # Attr('timestamp').between(1483130000, 1483133600) &
+        # Attr('tags').exists()
         # default value for select is "ALL_ATTRIBUTES"
         # if "ALL_attributes" is mentioned then projection and
         # ExpressionAttributeNames shouldn't be provided
@@ -66,7 +67,7 @@ class DynamoService:
     def delete_table_entry(self, table_name, key_dict):
         pass
 
-    def retrieve_table_content_based_on_get(self, table_name, filter_expression):
+    def retrieve_table_content_using_get(self, table_name, filter_expression):
         # We need to search based on combination of Hash and Range Key
         # Only providing the Hash key doesn't work here
         # We cannot search based on Non-key attributes using get_item
@@ -127,9 +128,11 @@ if __name__ == "__main__":
             },
         )
     )
+    """
 
     # read using scan
-    output = db.retrieve_table_content_based_on_scan(
+    time.sleep(5)
+    output = db.retrieve_table_content_using_scan(
         table_name="test",
         filter_condition=Attr("Date").eq(3725) & Key("ID").eq("1"),
         select_type="SPECIFIC_ATTRIBUTES",
@@ -139,4 +142,3 @@ if __name__ == "__main__":
         alias_columns={"#Name_NonKeyName": "Name", "#Date_NonKeyName": "Date"},
     )
     print(output)
-    """
