@@ -51,6 +51,8 @@ class DynamoService:
         # if "ALL_attributes" is mentioned then projection and
         # ExpressionAttributeNames shouldn't be provided
         # Here for scan make use of resource
+        # for filtering based on Key columns use the "Key" keyword
+        # for non- key attributes use the "Attr" keyword.
         table = self.resource.Table(table_name)
         response = table.scan(
             Select=select_type,
