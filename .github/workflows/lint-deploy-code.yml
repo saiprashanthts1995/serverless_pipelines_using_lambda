@@ -1,4 +1,3 @@
----
 name: Build and Deploy the lambda code
 
 on:
@@ -82,4 +81,3 @@ jobs:
                 --function-name  github_archive \
                 --s3-bucket sai-ts-learn-tf \
                 --s3-key code/lambda/zip/github_archive.zip
----
