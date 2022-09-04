@@ -41,7 +41,7 @@ class GithubArchiveConf:
         for key, value in GithubArchiveConf.BOOKMARK_ATTRIBUTES.items():
             if key == "TABLE_ID":
                 filter_expressions[key] = {
-                    value[0]: GithubArchiveConf.BOOKMARK_TABLE_ID
+                    value[0]: str(GithubArchiveConf.BOOKMARK_TABLE_ID)
                 }
             elif key == "TABLE_NAME":
                 filter_expressions[key] = {
@@ -52,7 +52,7 @@ class GithubArchiveConf:
         return filter_expressions
 
     @staticmethod
-    def initial_entry() -> dict:
+    def entry_item(file_type="first", file_name="") -> dict:
         entry_item = dict()
         for key, value in GithubArchiveConf.BOOKMARK_ATTRIBUTES.items():
             if key == "TABLE_ID":
@@ -62,10 +62,14 @@ class GithubArchiveConf:
             elif key == "FILE_LOAD_TIMESTAMP":
                 entry_item[key] = {value[0]: str(GithubArchiveConf.get_epoch_time())}
             elif key == "LAST_EXTRACTED_FILE":
-                entry_item[key] = {
-                    value[0]: GithubArchiveConf.URL_PREFIX
-                    + GithubArchiveConf.INITIAL_FILE_NAME
-                }
+                if file_type == "first":
+                    entry_item[key] = {
+                        value[0]: GithubArchiveConf.URL_PREFIX
+                        + GithubArchiveConf.INITIAL_FILE_NAME
+                    }
+                else:
+                    entry_item[key] = {value[0]: file_name}
+
             else:
                 print("Add new entries to BOOKMARK_ATTRIBUTES dictionary ")
                 sys.exit(1)

@@ -9,5 +9,5 @@ github_archive/__pycache__/__init__.cpython-310.pyc
 github_archive/__pycache__/utlis.cpython-310.pyc
 github_archive/services/__pycache__/s3_service.cpython-310.pyc
 github_archive/conf/__pycache__/github_archive_conf.cpython-310.pyc
-github_archive/operators/create_date_range.py
+github_archive/operators/create_file_path.py
 *.pyc

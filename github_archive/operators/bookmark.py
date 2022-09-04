@@ -20,7 +20,7 @@ def create_bookmark_table():
         time.sleep(20)
         db.write_to_table(
             table_name=GithubArchiveConf.BOOKMARK_TABLE_NAME,
-            item=GithubArchiveConf.initial_entry(),
+            item=GithubArchiveConf.entry_item(),
         )
         print("Initial entry to the table is made successfully")
     except ClientError as e:
@@ -32,5 +32,25 @@ def create_bookmark_table():
             sys.exit(1)
 
 
+def retrieve_last_file_name():
+    db = DynamoService()
+    output_response = db.retrieve_table_content_using_get(
+        table_name=GithubArchiveConf.BOOKMARK_TABLE_NAME,
+        filter_expression=GithubArchiveConf.get_filter_expression(),
+    )
+    print(output_response["LAST_EXTRACTED_FILE"]["S"])
+
+
+def update_table_content(file_name):
+    db = DynamoService()
+    db.write_to_table(
+        table_name=GithubArchiveConf.BOOKMARK_TABLE_NAME,
+        item=GithubArchiveConf.entry_item(file_type="Updated", file_name=file_name),
+    )
+    print(f"Dynamodb table updated with the filename {file_name} ")
+
+
 if __name__ == "__main__":
     create_bookmark_table()
+    retrieve_last_file_name()
+    # update_table_content("Sai")
