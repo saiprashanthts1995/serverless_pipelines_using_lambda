@@ -29,8 +29,9 @@ def generate_file_name() -> list:
         else:
             hour_start_counter = 1
             hour_end_counter = 24
-        file_list += [GithubArchiveConf.URL_PREFIX + datetime.strftime(initial_date + timedelta(days=day_counter), '%Y-%m-%d') + '-' + str(i) + extension
-             for i in range(hour_start_counter, hour_end_counter)]
+        file_list += [GithubArchiveConf.URL_PREFIX + datetime.strftime(initial_date +
+                                                                       timedelta(days=day_counter), '%Y-%m-%d') + '-'
+                      + str(i) + extension for i in range(hour_start_counter, hour_end_counter)]
         day_counter += 1
     return file_list
 
