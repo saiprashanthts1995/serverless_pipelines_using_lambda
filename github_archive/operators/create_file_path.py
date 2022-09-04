@@ -7,7 +7,7 @@ from datetime import timedelta
 def generate_file_name() -> list:
     file_list = list()
     # initial_file = retrieve_last_file_name()
-    initial_file = 'https://data.gharchive.org/2022-09-03-4.json.gz'
+    initial_file = 'https://data.gharchive.org/2022-09-01-4.json.gz'
     extension = '.' + '.'.join(initial_file.split('/')[-1].split('.')[1:])
     initial_date_time = initial_file.split('/')[-1].split('.')[0]
     initial_date = datetime.strptime('-'.join(initial_date_time.split('-')[:-1]), '%Y-%m-%d')
@@ -24,10 +24,10 @@ def generate_file_name() -> list:
             hour_start_counter = int(initial_hour) + 1
             hour_end_counter = 24
         elif day_counter == number_of_days:
-            hour_start_counter = 1
+            hour_start_counter = 0
             hour_end_counter = int(current_hour)
         else:
-            hour_start_counter = 1
+            hour_start_counter = 0
             hour_end_counter = 24
         file_list += [GithubArchiveConf.URL_PREFIX + datetime.strftime(initial_date +
                                                                        timedelta(days=day_counter), '%Y-%m-%d') + '-'
