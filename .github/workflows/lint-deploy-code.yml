@@ -50,19 +50,7 @@ jobs:
         run: |
           sh +x build_using_github.sh
           
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy to AWS
-        run: |
-          echo `pwd`
-          echo `ls`
-          echo `ls build_code`
-          aws s3 cp build_code/github_archive.zip s3://sai-ts-learn-tf/code/lambda/zip/
 
   deploy-prod:
     runs-on: 'ubuntu-latest'
@@ -83,7 +71,23 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ env.AWS_REGION }}
-      
-      - name: Deploy to AWS
+
+      - name: Copy the Zip file to AWS S3
         run: |
-          echo "Waiting"
+          echo `pwd`
+          echo `ls`
+          echo `ls build_code`
+          aws s3 cp build_code/github_archive.zip s3://sai-ts-learn-tf/code/lambda/zip/
+          
+      - name: Delete the existing files in S3
+        run: |
+          aws s3 rm s3://sai-ts-learn-tf/github_archive/download/ --recursive
+          
+      
+      - name: Deploy to AWS Lambda
+        run: |
+          aws lambda update-function-code \
+                --function-name  github_archive 
+                --s3-bucket sai-ts-learn-tf 
+                --s3-key code/lambda/zip/github_archive.zip 
+
