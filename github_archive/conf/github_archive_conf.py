@@ -16,7 +16,7 @@ class GithubArchiveConf:
         "LAST_EXTRACTED_FILE": ["S", "ATTRIBUTE"],
     }
     URL_PREFIX = "https://data.gharchive.org/"
-    INITIAL_FILE_NAME = os.environ.get('INITIAL_FILE_NAME')
+    INITIAL_FILE_NAME = os.environ.get("INITIAL_FILE_NAME")
 
     @staticmethod
     def get_key_schema() -> list:
