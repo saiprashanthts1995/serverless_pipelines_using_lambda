@@ -14,14 +14,6 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
       - id: fix-byte-order-marker
-  - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.26.3
-    hooks:
-      - id: yamllint
-        # args: ["-d {extends: relaxed, rules: {line-length: {max: 120}}}"]
-        args: ["-c", ".yamllint.cfg"]
-        # verbose: true
-        # entry: bash -c 'yamllint "$@" || true' --
 
   - repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
     rev: v0.1.0
