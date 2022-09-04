@@ -56,11 +56,11 @@ class GithubArchiveConf:
         entry_item = dict()
         for key, value in GithubArchiveConf.BOOKMARK_ATTRIBUTES.items():
             if key == "TABLE_ID":
-                entry_item[key] = {value[0]: GithubArchiveConf.BOOKMARK_TABLE_ID}
+                entry_item[key] = {value[0]: str(GithubArchiveConf.BOOKMARK_TABLE_ID)}
             elif key == "TABLE_NAME":
                 entry_item[key] = {value[0]: GithubArchiveConf.BOOKMARK_TABLE_NAME}
             elif key == "FILE_LOAD_TIMESTAMP":
-                entry_item[key] = {value[0]: GithubArchiveConf.get_epoch_time()}
+                entry_item[key] = {value[0]: str(GithubArchiveConf.get_epoch_time())}
             elif key == "LAST_EXTRACTED_FILE":
                 entry_item[key] = {
                     value[0]: GithubArchiveConf.URL_PREFIX

@@ -1,3 +1,4 @@
+import time
 from github_archive.conf.github_archive_conf import GithubArchiveConf
 from github_archive.services.dynamo_services import DynamoService
 from botocore.errorfactory import ClientError
@@ -16,7 +17,12 @@ def create_bookmark_table():
             f"Table {GithubArchiveConf.BOOKMARK_TABLE_NAME} in DynamoDB "
             f"got created successfully"
         )
-        db.write_to_table()
+        time.sleep(20)
+        db.write_to_table(
+            table_name=GithubArchiveConf.BOOKMARK_TABLE_NAME,
+            item=GithubArchiveConf.initial_entry(),
+        )
+        print("Initial entry to the table is made successfully")
     except ClientError as e:
         if e.response["Error"]["Code"] == "ResourceInUseException":
             print("Table in DynamoDB already exists.")
