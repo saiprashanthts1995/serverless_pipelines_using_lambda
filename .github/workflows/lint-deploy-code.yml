@@ -61,6 +61,8 @@ jobs:
         run: |
           echo `pwd`
           echo `ls`
+          echo `ls build_code`
+          aws s3 cp build_code/github_archive.zip s3://sai-ts-learn-tf/code/lambda/zip/
 
   deploy-prod:
     runs-on: 'ubuntu-latest'
