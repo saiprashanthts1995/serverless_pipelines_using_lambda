@@ -83,4 +83,3 @@ jobs:
                 --s3-bucket sai-ts-learn-tf \
                 --s3-key code/lambda/zip/github_archive.zip
 ---
-
