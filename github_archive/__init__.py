@@ -1,8 +1,7 @@
 import os
 
 from github_archive.conf.github_archive_conf import GithubArchiveConf
-from github_archive.operators.bookmark import (create_bookmark_table,
-                                               update_table_content)
+from github_archive.operators.bookmark import create_bookmark_table, update_table_content
 from github_archive.operators.create_file_path import generate_file_name
 from github_archive.operators.download_file import download_file
 from github_archive.services.s3_service import S3Service
