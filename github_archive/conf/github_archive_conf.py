@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 import time
+import os
 
 
 class GithubArchiveConf:
@@ -15,7 +16,7 @@ class GithubArchiveConf:
         "LAST_EXTRACTED_FILE": ["S", "ATTRIBUTE"],
     }
     URL_PREFIX = "https://data.gharchive.org/"
-    INITIAL_FILE_NAME = "2022-09-04-14.json.gz"
+    INITIAL_FILE_NAME = os.environ.get('INITIAL_FILE_NAME')
 
     @staticmethod
     def get_key_schema() -> list:
