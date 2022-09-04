@@ -1,10 +1,11 @@
 import boto3
 from github_archive.utlis import udf_exception
+import os
 
 
 class S3Service:
     def __init__(self) -> None:
-        # os.environ.setdefault("AWS_PROFILE", "serverless")
+        os.environ.setdefault("AWS_PROFILE", "serverless")
         self.s3_client = boto3.client("s3")
 
     def s3_list_buckets(self) -> list:
