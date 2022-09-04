@@ -1,8 +1,4 @@
-import os
-
-# sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
 from github_archive.services.s3_service import S3Service
-from github_archive.operators.bookmark import retrieve_last_file_name
 from github_archive.operators.bookmark import create_bookmark_table
 from github_archive.operators.bookmark import update_table_content
 from github_archive.operators.create_file_path import generate_file_name
@@ -15,6 +11,8 @@ from github_archive.utlis import udf_exception
 @udf_exception
 def main():
     s3 = S3Service()
+    print("List of buckets present under the account are")
+    print(s3.s3_list_buckets())
     conf = GithubArchiveConf()
     # create the table if not exists
     create_bookmark_table()
@@ -46,8 +44,6 @@ def lambda_handler(event, context):
 
 
 if __name__ == "__main__":
-    s3 = S3Service()
-    print("List of buckets present")
-    print(s3.s3_list_buckets())
-    print(os.path.join(os.path.dirname(__file__)), "..")
+    # print(os.path.join(os.path.dirname(__file__)), "..")
+    # sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
     lambda_handler(None, None)
