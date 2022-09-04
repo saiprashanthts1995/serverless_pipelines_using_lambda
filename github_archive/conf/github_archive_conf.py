@@ -15,7 +15,7 @@ class GithubArchiveConf:
         "LAST_EXTRACTED_FILE": ["S", "ATTRIBUTE"],
     }
     URL_PREFIX = "https://data.gharchive.org/"
-    INITIAL_FILE_NAME = "2022-09-04-11.json.gz"
+    INITIAL_FILE_NAME = "2022-09-04-15.json.gz"
 
     @staticmethod
     def get_key_schema() -> list:
