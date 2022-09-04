@@ -1,8 +1,10 @@
+import sys
 import time
+
+from botocore.errorfactory import ClientError
+
 from github_archive.conf.github_archive_conf import GithubArchiveConf
 from github_archive.services.dynamo_services import DynamoService
-from botocore.errorfactory import ClientError
-import sys
 
 
 def create_bookmark_table():

@@ -1,6 +1,8 @@
 import sys
-from github_archive.services.s3_service import S3Service
+
 import requests
+
+from github_archive.services.s3_service import S3Service
 
 
 def download_file(path: str) -> bytes:

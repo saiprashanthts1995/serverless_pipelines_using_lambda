@@ -1,6 +1,7 @@
-import boto3
 import time
-from boto3.dynamodb.conditions import Key, Attr
+
+import boto3
+from boto3.dynamodb.conditions import Attr, Key
 
 
 class DynamoService:

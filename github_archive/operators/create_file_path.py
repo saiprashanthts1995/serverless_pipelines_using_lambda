@@ -1,7 +1,7 @@
+from datetime import datetime, timedelta
+
 from github_archive.conf.github_archive_conf import GithubArchiveConf
 from github_archive.operators.bookmark import retrieve_last_file_name
-from datetime import datetime
-from datetime import timedelta
 
 
 def generate_file_name() -> list:

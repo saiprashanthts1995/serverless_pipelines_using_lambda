@@ -23,11 +23,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Hello Here
       run: |
         echo "Hi here"
-        
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -49,7 +49,7 @@ jobs:
       - name: Dev Build Code
         run: |
           sh +x build_using_github.sh
-          
+
 
 
   deploy-prod:
@@ -78,16 +78,15 @@ jobs:
           echo `ls`
           echo `ls build_code`
           aws s3 cp build_code/github_archive.zip s3://sai-ts-learn-tf/code/lambda/zip/
-          
+
       - name: Delete the existing files in S3
         run: |
           aws s3 rm s3://sai-ts-learn-tf/github_archive/download/ --recursive
-          
-      
+
+
       - name: Deploy to AWS Lambda
         run: |
           aws lambda update-function-code \
                 --function-name  github_archive \
                 --s3-bucket sai-ts-learn-tf \
-                --s3-key code/lambda/zip/github_archive.zip 
-
+                --s3-key code/lambda/zip/github_archive.zip
