@@ -87,7 +87,7 @@ jobs:
       - name: Deploy to AWS Lambda
         run: |
           aws lambda update-function-code \
-                --function-name  github_archive 
-                --s3-bucket sai-ts-learn-tf 
+                --function-name  github_archive \
+                --s3-bucket sai-ts-learn-tf \
                 --s3-key code/lambda/zip/github_archive.zip 
 
