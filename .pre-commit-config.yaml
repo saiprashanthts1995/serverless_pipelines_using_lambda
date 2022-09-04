@@ -1,25 +1,25 @@
 repos:
--   repo: https://github.com/psf/black
+  - repo: https://github.com/psf/black
     rev: stable
     hooks:
-    - id: black
--   repo: https://gitlab.com/pycqa/flake8
+      - id: black
+  - repo: https://gitlab.com/pycqa/flake8
     rev: 5.0.4
     hooks:
-    - id: flake8
--   repo: https://github.com/pre-commit/pre-commit-hooks
+      - id: flake8
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.2.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
       - id: fix-byte-order-marker
--   repo: https://github.com/pycqa/isort
+  - repo: https://github.com/pycqa/isort
     rev: 5.10.1
     hooks:
       - id: isort
         name: isort (python)
--   repo: https://github.com/adrienverge/yamllint.git
+  - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.26.3
     hooks:
       - id: yamllint
@@ -28,7 +28,7 @@ repos:
         # verbose: true
         # entry: bash -c 'yamllint "$@" || true' --
 
--   repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
+  - repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
     rev: v0.1.0
     hooks:
       - id: dockerfilelint
