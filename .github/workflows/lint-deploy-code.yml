@@ -49,6 +49,18 @@ jobs:
       - name: Dev Build Code
         run: |
           sh +x build_using_github.sh
+          
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to AWS
+        run: |
+          echo `pwd`
+          echo `ls`
 
   deploy-prod:
     runs-on: 'ubuntu-latest'

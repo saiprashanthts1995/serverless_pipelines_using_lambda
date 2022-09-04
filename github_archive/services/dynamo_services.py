@@ -1,12 +1,11 @@
 import boto3
-import os
 import time
 from boto3.dynamodb.conditions import Key, Attr
 
 
 class DynamoService:
     def __init__(self):
-        os.environ.setdefault("AWS_PROFILE", "serverless")
+        # os.environ.setdefault("AWS_PROFILE", "serverless")
         self.client = boto3.client("dynamodb")
         self.resource = boto3.resource("dynamodb")
 
