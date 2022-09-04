@@ -7,13 +7,15 @@ from datetime import timedelta
 def generate_file_name() -> list:
     file_list = list()
     initial_file = retrieve_last_file_name()
-    initial_file = 'https://data.gharchive.org/2022-09-01-4.json.gz'
-    extension = '.' + '.'.join(initial_file.split('/')[-1].split('.')[1:])
-    initial_date_time = initial_file.split('/')[-1].split('.')[0]
-    initial_date = datetime.strptime('-'.join(initial_date_time.split('-')[:-1]), '%Y-%m-%d')
-    initial_hour = initial_date_time.split('-')[-1]
+    initial_file = "https://data.gharchive.org/2022-09-01-4.json.gz"
+    extension = "." + ".".join(initial_file.split("/")[-1].split(".")[1:])
+    initial_date_time = initial_file.split("/")[-1].split(".")[0]
+    initial_date = datetime.strptime(
+        "-".join(initial_date_time.split("-")[:-1]), "%Y-%m-%d"
+    )
+    initial_hour = initial_date_time.split("-")[-1]
     current_date = datetime.today()
-    current_hour = datetime.strftime(datetime.now(), '%H')
+    current_hour = datetime.strftime(datetime.now(), "%H")
     number_of_days = (current_date - initial_date).days
     day_counter = 0
     while day_counter <= number_of_days:
@@ -29,19 +31,17 @@ def generate_file_name() -> list:
         else:
             hour_start_counter = 0
             hour_end_counter = 24
-        file_list += [GithubArchiveConf.URL_PREFIX + datetime.strftime(initial_date +
-                                                                       timedelta(days=day_counter), '%Y-%m-%d') + '-'
-                      + str(i) + extension for i in range(hour_start_counter, hour_end_counter)]
+        file_list += [
+            GithubArchiveConf.URL_PREFIX
+            + datetime.strftime(initial_date + timedelta(days=day_counter), "%Y-%m-%d")
+            + "-"
+            + str(i)
+            + extension
+            for i in range(hour_start_counter, hour_end_counter)
+        ]
         day_counter += 1
     return file_list
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(generate_file_name())
-
-
-
-
-
-
-
