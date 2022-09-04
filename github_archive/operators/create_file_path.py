@@ -7,7 +7,6 @@ from datetime import timedelta
 def generate_file_name() -> list:
     file_list = list()
     initial_file = retrieve_last_file_name()
-    initial_file = "https://data.gharchive.org/2022-09-01-4.json.gz"
     extension = "." + ".".join(initial_file.split("/")[-1].split(".")[1:])
     initial_date_time = initial_file.split("/")[-1].split(".")[0]
     initial_date = datetime.strptime(

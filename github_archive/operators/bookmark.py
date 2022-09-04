@@ -38,7 +38,7 @@ def retrieve_last_file_name():
         table_name=GithubArchiveConf.BOOKMARK_TABLE_NAME,
         filter_expression=GithubArchiveConf.get_filter_expression(),
     )
-    print(output_response["LAST_EXTRACTED_FILE"]["S"])
+    return output_response["LAST_EXTRACTED_FILE"]["S"]
 
 
 def update_table_content(file_name):
@@ -52,5 +52,5 @@ def update_table_content(file_name):
 
 if __name__ == "__main__":
     create_bookmark_table()
-    retrieve_last_file_name()
+    print(retrieve_last_file_name())
     # update_table_content("Sai")

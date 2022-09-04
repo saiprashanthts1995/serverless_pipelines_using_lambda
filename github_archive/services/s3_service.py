@@ -14,14 +14,13 @@ class S3Service:
         Returns: list of buckets
         """
         response = self.s3_client.list_buckets()
-        print(response)
         bucket_list = [bucket["Name"] for bucket in response["Buckets"]]
         return bucket_list
 
     @udf_exception
     def s3_write_content(self, content, bucket_name, file_name):
         put_response = self.s3_client.put_object(
-            Body=content.encode("utf-8"),
+            Body=content,
             Bucket=bucket_name,
             Key=file_name,
         )
@@ -33,7 +32,7 @@ if __name__ == "__main__":
     print(s3.s3_list_buckets())
     print(
         s3.s3_write_content(
-            content="Hello",
+            content="Hello".encode("utf-8"),
             bucket_name="sai-ts-learn-tf",
             file_name="landing_zone/Test/Hello.txt",
         )

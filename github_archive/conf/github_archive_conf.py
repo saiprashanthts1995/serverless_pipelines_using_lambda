@@ -7,7 +7,7 @@ class GithubArchiveConf:
     BOOKMARK_TABLE_NAME = "bookmark-github"
     BOOKMARK_TABLE_ID = 1
     STORAGE_FILE_PATH = "github_archive/download/"
-    BUCKET_NAME = ""
+    BUCKET_NAME = "sai-ts-learn-tf"
     BOOKMARK_ATTRIBUTES = {
         "TABLE_ID": ["S", "HASH"],
         "TABLE_NAME": ["S", "RANGE"],
@@ -15,7 +15,7 @@ class GithubArchiveConf:
         "LAST_EXTRACTED_FILE": ["S", "ATTRIBUTE"],
     }
     URL_PREFIX = "https://data.gharchive.org/"
-    INITIAL_FILE_NAME = "2022-09-02-1.json.gz"
+    INITIAL_FILE_NAME = "2022-09-04-11.json.gz"
 
     @staticmethod
     def get_key_schema() -> list:
@@ -88,4 +88,4 @@ if __name__ == "__main__":
     print(conf.get_key_attributes())
     print(conf.get_filter_expression())
     print(conf.get_epoch_time())
-    print(conf.initial_entry())
+    print(conf.entry_item())
