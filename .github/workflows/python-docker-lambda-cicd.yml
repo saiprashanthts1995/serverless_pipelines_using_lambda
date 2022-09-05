@@ -72,6 +72,12 @@ jobs:
           docker push 000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
 
 
-      - name: Deploy to AWS Lambda by updating with latest ECR image
+      - name: Delete the existing files in S3
         run: |
-          echo "Going to deploy soon"
+          aws s3 rm s3://sai-ts-learn-tf/github_archive/download/ --recursive
+
+      - name: Deploy to AWS Lambda by updating the ecr image
+        run: |
+          aws lambda update-function-code \
+                --function-name  github_archive \
+                --image-uri 000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
