@@ -1,4 +1,4 @@
-name: Build and Deploy the lambda code
+name: Build and Deploy the lambda code using zip file
 
 on:
   push:
