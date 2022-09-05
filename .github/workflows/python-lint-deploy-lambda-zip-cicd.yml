@@ -1,4 +1,4 @@
-name: Build and Deploy the lambda code using zip file
+name: Build and deploy the lambda code using zip file
 
 on:
   push:
@@ -11,10 +11,9 @@ permissions:
 
 env:
   AWS_REGION: ca-central-1
-  BUCKET_NAME: sai-ts-learn-tf
 
 jobs:
-  build:
+  check-code-quality:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +36,7 @@ jobs:
   deploy-dev:
     runs-on: "ubuntu-latest"
     environment: "dev"
-    needs: build
+    needs: check-code-quality
     steps:
       - uses: actions/checkout@v3
 
@@ -45,10 +44,10 @@ jobs:
         run: |
           sh +x build_using_github.sh
 
-  deploy-prod:
+  deploy-lambda-zip-code-prod:
     runs-on: "ubuntu-latest"
     environment: "prod"
-    needs: [build, deploy-dev]
+    needs: [check-code-quality, deploy-dev]
     steps:
       # Download published artifact
       - uses: actions/checkout@v3
@@ -71,11 +70,11 @@ jobs:
           echo `ls build_code`
           aws s3 cp build_code/github_archive.zip s3://sai-ts-learn-tf/code/lambda/zip/
 
-      - name: Delete the existing files in S3
+      - name: Delete the existing data files in S3
         run: |
           aws s3 rm s3://sai-ts-learn-tf/github_archive/download/ --recursive
 
-      - name: Deploy to AWS Lambda
+      - name: Deploy to AWS Lambda by updating the zip file present in S3 bucket
         run: |
           aws lambda update-function-code \
                 --function-name  github_archive \
