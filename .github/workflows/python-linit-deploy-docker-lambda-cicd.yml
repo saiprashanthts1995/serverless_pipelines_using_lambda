@@ -1,0 +1,83 @@
+
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  AWS_REGION: ca-central-1 # set this to your preferred AWS region, e.g. us-west-1
+  BUCKET_NAME: sai-ts-learn-tf
+
+permissions:
+  contents: read
+
+jobs:
+  Code-Check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pre-commit
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Check Code quality using pre-commit
+        run: |
+          pre-commit run --all-files --verbose
+
+  deploy-ecr-code:
+    runs-on: "ubuntu-latest"
+    environment: "prod"
+    needs: [Code-Check]
+    steps:
+      # Download published artifact
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create ECR image and Push the image to ECR
+        run: |
+          aws ecr get-login-password \
+                --region ca-central-1 | docker login --username AWS \
+                --password-stdin 000549131923.dkr.ecr.ca-central-1.amazonaws.com
+
+          docker build -t github_archive_sai .
+
+          docker tag github_archive_sai:latest \
+                000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
+
+          docker push 000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
+
+
+      - name: Delete the existing files in S3
+        run: |
+          aws s3 rm s3://sai-ts-learn-tf/github_archive/download/ --recursive
+
+      - name: Deploy to AWS Lambda by updating the ecr image
+        run: |
+          aws lambda update-function-code \
+                --function-name  github-archive-docker-application \
+                --image-uri 000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
