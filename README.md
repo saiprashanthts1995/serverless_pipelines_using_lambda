@@ -6,10 +6,13 @@
 
 ## Requirements
 1. Create User with the access to Dynamodb, S3, lambda, ECR
-![img.png](images/User_Permission.png)
+![User_Permission.png](images/User_Permission.png)
 
 2. Create two lambda functions with the below name
-![img.png](images/lambda_function.png)
+![lambda_function.png](images/lambda_function.png)
 
 3. Provide the following permission for lambda role
-![img.png](images/lambda_role_permission.png)
+![lambda_role_permission.png](images/lambda_role_permission.png)
+
+4. AWS lambda - environment variables
+![lambda_environment_variables.png](images/lambda_environment_variables.png)
