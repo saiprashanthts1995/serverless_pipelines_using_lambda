@@ -61,14 +61,14 @@ jobs:
       - name: Create ECR image and Push the image to ECR
         run: |
           aws ecr get-login-password \
-                --region ca-central-1 | docker login --username AWS \ 
+                --region ca-central-1 | docker login --username AWS \
                 --password-stdin 000549131923.dkr.ecr.ca-central-1.amazonaws.com
-          
+
           docker build -t github_archive_sai .
-          
+
           docker tag github_archive_sai:latest \
                 000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
-          
+
           docker push 000549131923.dkr.ecr.ca-central-1.amazonaws.com/github_archive_sai:latest
 
 
