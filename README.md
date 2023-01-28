@@ -2,8 +2,6 @@
 
 
 a
-a
-a
 
 
 ## Resources
